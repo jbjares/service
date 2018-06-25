@@ -4,14 +4,13 @@ import java.net.URI
 import java.net.URL
 import java.util.*
 
-
 data class DockerRegistryEvent(
 
-    val id : UUID,
-    val action : Action,
-    val target : Target,
-    val request : Request,
-    val source : Source) {
+        val id : UUID,
+        val action : Action,
+        val target : Target,
+        val request : Request,
+        val source : Source) {
 
     enum class Action {
         PULL, PUSH, MOUNT

@@ -12,10 +12,10 @@ spring:
       bindings:
         output:
           destination: trainupdate
-          #    entity:
+          #    config:
           #      discovery:
           #        enabled: true
-          #        service-id: entity-server
+          #        service-id: config-server
           #      fail-fast: false
           #      retry:
           #        initial-interval: 2000
@@ -45,10 +45,10 @@ spring:
       bindings:
         output:
           destination: trainupdate
-          #    entity:
+          #    config:
           #      discovery:
           #        enabled: true
-          #        service-id: entity-server
+          #        service-id: config-server
           #      fail-fast: false
           #      retry:
           #        initial-interval: 2000

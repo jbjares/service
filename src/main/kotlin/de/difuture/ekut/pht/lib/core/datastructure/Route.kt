@@ -1,77 +1,70 @@
-package core.datastructure;
+package de.difuture.ekut.pht.lib.core.datastructure
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIdentityReference
+import com.fasterxml.jackson.annotation.ObjectIdGenerators
+import de.difuture.ekut.pht.lib.core.interfaces.BinaryRelation
+import de.difuture.ekut.pht.lib.core.interfaces.Identifiable
 
-import java.util.*;
+data class Route(val nodes : Set<Node>, val edges : Set<Edge>) : Iterable<Route.Edge> {
 
-data class Route() {
+    init {
+        // Check that all the nodes in the edgeset are also contained in the node set
+        val error = edges.any {
 
-    Set<Node> nodes;
+            it.source !in nodes || it.target !in nodes
+        }
+        if (error) {
 
-    Set<Edge> edges;
-
-    public Route(Set<Node> nodes, Set<Edge> edges) {
-
-        // defensive copy of arguments
-        this.nodes = new HashSet<>(nodes);
-        this.edges = new HashSet<>(edges);
-        this.checkEdgeSet();
+            throw IllegalArgumentException("Edge set contains unknown nodes")
+        }
     }
+    override fun iterator() = this.edges.iterator()
 
-    public Set<Node> getNodes() {
+    data class Edge(
+            @JsonIdentityReference(alwaysAsId = true) val source : Node,
+            @JsonIdentityReference(alwaysAsId = true) val target : Node)
+        : BinaryRelation<Node, Node> {
 
-        return Collections.unmodifiableSet(this.nodes);
-    }
+        override fun getFirst() = this.source
+        override fun getSecond() = this.target
 
-    public Set<Edge> getEdges() {
+        init {
 
-        return Collections.unmodifiableSet(this.edges);
-    }
+            if (source == target) {
 
-
-    /**
-     *  Checks that the Edge set does not contain any nodes that do not appear
-     *  in the node set.
-     *
-     * @throws IllegalStateException When the EdgeSet contains nodes that the node set does not.
-     */
-    private void checkEdgeSet() {
-
-        for (final Edge edge : this.edges) {
-
-            final Node source = edge.getSource();
-            final Node target = edge.getTarget();
-
-            if ( ! this.nodes.contains(source)) {
-
-                throw new IllegalStateException("Node set does not contain node: " + source.id);
-            }
-
-            if ( ! this.nodes.contains(target)) {
-
-                throw new IllegalStateException("Node set does not contain node: " + target.id);
+                throw IllegalArgumentException("Cannot create cyclic edge of node $source")
             }
         }
     }
 
+    @JsonIdentityInfo(
+            property = "id",
+            generator = ObjectIdGenerators.PropertyGenerator::class)
+    data class Node(val id : Long) : Identifiable {
 
-    @Value
-    public static final class Edge {
-
-        @JsonProperty("source")
-        @JsonIdentityReference(alwaysAsId = true)
-        Node source;
-
-        @JsonProperty("target")
-        @JsonIdentityReference(alwaysAsId = true)
-        Node target;
+            override fun getIdentifier() = this.id
     }
 
-    @Value
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    public static final class Node {
 
-        @JsonProperty("id")
-        Long id;
+    /**
+     * Contains helpers to quickly create routes
+     */
+    class Builder {
+
+        private val edges : MutableSet<Route.Edge> = mutableSetOf()
+
+        fun edge(from : Long, to : Long) : Builder {
+
+            edges.add(
+                    Route.Edge(Route.Node(from), Route.Node(to)))
+            return this
+        }
+
+        fun build() : Route {
+
+            val nodes = this.edges.map { setOf(it.source, it.target) }.flatten().toSet()
+            return Route(nodes, this.edges)
+        }
     }
-
 }
