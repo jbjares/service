@@ -1,0 +1,29 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  # You may want to update this to whatever the latest version is, or keep it
+  # the same as your local machines. However, I have only tested it with 1.8.0+.
+  # There should be a time in the future when this is not necessary - it is
+  # explained in more detail below.
+  DOCKER_COMPOSE_VERSION: 1.21.2
+
+before_install:
+  # update is required to update the repositories to see the new packages for
+  # Docker.
+  - sudo apt-get update
+
+  # Install Docker Compose
+  - sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+  - sudo chmod +x /usr/local/bin/docker-compose
+
+  # Print out the current docker-compose version. Once this reports 1.6+ then we
+  # do not need the following steps.
+  - docker-compose --version
+
+  # You will want this for logging. If one of your containers does not build for
+  # whatever reason it's best to report that now before your tests start
+  # otherwise it can be really tricky to debug why tests are failing sometimes.
+  - docker ps
