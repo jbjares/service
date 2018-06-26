@@ -1,5 +1,6 @@
-package de.difuture.ekut.pht.lib.core.dockerevent
+package de.difuture.ekut.pht.lib.core.event
 
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.net.URI
 import java.net.URL
@@ -11,10 +12,16 @@ data class DockerRegistryEvent(
         @JsonProperty("action") val action : Action,
         @JsonProperty("target") val target : Target,
         @JsonProperty("request") val request : Request,
-        @JsonProperty("source") val source : Source) {
+        @JsonProperty("source") val source : Source) : Event {
 
     enum class Action {
-        PULL, PUSH, MOUNT
+        PULL, PUSH, MOUNT;
+
+        companion object {
+
+            @JsonCreator @JvmStatic
+            fun fromString(value : String) : Action = Action.valueOf(value.trim().toUpperCase())
+        }
     }
 
     data class Target(
@@ -23,7 +30,7 @@ data class DockerRegistryEvent(
             @JsonProperty("digest") val digest : String,
             @JsonProperty("repository") val repository : String,
             @JsonProperty("url") val url : URL,
-            @JsonProperty("tag") val tag : String
+            @JsonProperty("tag") val tag : String?
     )
 
     data class Request(

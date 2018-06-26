@@ -1,6 +1,6 @@
 package de.difuture.ekut.pht.controller
 
-import de.difuture.ekut.pht.lib.core.dockerevent.DockerRegistryEvent
+import de.difuture.ekut.pht.lib.core.event.DockerRegistryEvents
 import de.difuture.ekut.pht.service.eventconsumer.RegistryEventConsumer
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -13,7 +13,7 @@ class RegistryListenerController
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    fun listener(@RequestBody events: Iterable<DockerRegistryEvent>) {
+    fun listener(@RequestBody events: DockerRegistryEvents) {
 
         // Just print the events for testing purposes
         events.forEach { println(it) }

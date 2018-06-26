@@ -22,5 +22,8 @@ before_install:
 
 install:
 
-  # Build the Docker Image using make
+  # Build the Docker Image using make. This will create the image with the 'test' tag if all the Unit tests run successful 
   make
+
+  # Pull the continuous integration suite
+  

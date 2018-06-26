@@ -2,6 +2,7 @@ package de.difuture.ekut.pht.lib.core.dockerevent
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import de.difuture.ekut.pht.functions.equalAfterSerialization
+import de.difuture.ekut.pht.lib.core.event.DockerRegistryEvent
 import io.github.benas.randombeans.api.EnhancedRandom
 import org.junit.After
 import org.junit.Before
