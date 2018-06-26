@@ -1,4 +1,4 @@
-package de.difuture.ekut.pht.lib.api.rest
+package de.difuture.ekut.pht.api
 
 import java.net.URI
 

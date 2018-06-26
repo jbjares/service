@@ -1,12 +1,15 @@
 package de.difuture.ekut.pht.lib.core.datastructure
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo
-import com.fasterxml.jackson.annotation.JsonIdentityReference
-import com.fasterxml.jackson.annotation.ObjectIdGenerators
+import com.fasterxml.jackson.annotation.*
 import de.difuture.ekut.pht.lib.core.interfaces.BinaryRelation
 import de.difuture.ekut.pht.lib.core.interfaces.Identifiable
 
-data class Route(val nodes : Set<Node>, val edges : Set<Edge>) : Iterable<Route.Edge> {
+data class Route(
+        @JsonProperty("nodes")
+        val nodes : Set<Node>,
+
+        @JsonProperty("edges")
+        val edges : Set<Edge>) : Iterable<Route.Edge> {
 
     init {
         // Check that all the nodes in the edgeset are also contained in the node set
@@ -22,12 +25,22 @@ data class Route(val nodes : Set<Node>, val edges : Set<Edge>) : Iterable<Route.
     override fun iterator() = this.edges.iterator()
 
     data class Edge(
-            @JsonIdentityReference(alwaysAsId = true) val source : Node,
-            @JsonIdentityReference(alwaysAsId = true) val target : Node)
+            @JsonProperty("source")
+            @JsonIdentityReference(alwaysAsId = true)
+            val source : Node,
+
+            @JsonProperty("target")
+            @JsonIdentityReference(alwaysAsId = true)
+            val target : Node)
         : BinaryRelation<Node, Node> {
 
+        @JsonIgnore
         override fun getFirst() = this.source
+
+        @JsonIgnore
         override fun getSecond() = this.target
+
+        constructor(source : Long, target : Long) : this(Node(source), Node(target))
 
         init {
 
@@ -41,8 +54,10 @@ data class Route(val nodes : Set<Node>, val edges : Set<Edge>) : Iterable<Route.
     @JsonIdentityInfo(
             property = "id",
             generator = ObjectIdGenerators.PropertyGenerator::class)
-    data class Node(val id : Long) : Identifiable {
+    data class Node(
+            @JsonProperty("id") val id : Long) : Identifiable {
 
+            @JsonIgnore
             override fun getIdentifier() = this.id
     }
 

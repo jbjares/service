@@ -1,14 +1,8 @@
-package de.difuture.ekut.pht.lib.api.rest
+package de.difuture.ekut.pht.api
 
 import java.net.URI
 
-class Station(
-        /**
-         * The global ID of the station. Knowledge of this ID is required for
-         * purpose of communicating with RESTful services about this station.
-         *
-         */
-        val stationID : Long,
+data class StationPing(
 
         /**
          * The clear text name of this station.

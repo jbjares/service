@@ -23,13 +23,17 @@
 			<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 			<java.version>1.8</java.version>
 			<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
-			<dockerfile-plugin.version>1.4.3</dockerfile-plugin.version>
-			<docker.image.prefix>pht</docker.image.prefix>
-        <kotlin.version>1.2.50</kotlin.version>
+            <kotlin.version>1.2.50</kotlin.version>
+            <random-beans.vesion>3.7.0</random-beans.vesion>
     </properties>
 
 
 	<dependencies>
+        <dependency>
+            <groupId>io.github.benas</groupId>
+            <artifactId>random-beans</artifactId>
+            <version>${random-beans.vesion}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-neo4j</artifactId>
@@ -65,94 +69,35 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
-
-
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>dockerfile-maven-plugin</artifactId>
-				<version>${dockerfile-plugin.version}</version>
-				<executions>
-    					<execution>
-      						<id>default</id>
-      							<goals>
-       							 	<goal>build</goal>
-        						  <!--	<goal>push</goal>   Local registry only -->
-      							</goals>
-    					</execution>
-  				</executions>
-				<configuration>
-					<pullNewerImage>false</pullNewerImage>
-					<repository>${docker.image.prefix}/${project.artifactId}</repository>
-					<buildArgs>
-						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-					</buildArgs>
-				</configuration>
-			</plugin>
+    <build>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+        <plugins>
             <plugin>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <sourceDirs>
-                                <source>src/main/java</source>
-                                <source>src/main/kotlin</source>
-                            </sourceDirs>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jvmTarget>1.8</jvmTarget>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>testCompile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <configuration>
+                    <args>
+                        <arg>-Xjsr305=strict</arg>
+                    </args>
+                    <compilerPlugins>
+                        <plugin>spring</plugin>
+                    </compilerPlugins>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
-	</build>
+    </build>
 </project>

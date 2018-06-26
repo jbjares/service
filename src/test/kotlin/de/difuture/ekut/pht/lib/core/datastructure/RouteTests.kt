@@ -1,14 +1,17 @@
 package de.difuture.ekut.pht.lib.core.datastructure
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import de.difuture.ekut.pht.functions.equalAfterSerialization
 import org.junit.After
-import org.junit.Assert
-import java.io.IOException
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.junit4.SpringRunner
 
-
-class RouteTest {
+@RunWith(SpringRunner::class)
+@SpringBootTest
+class RouteTests {
 
     private var linearRoutes: Array<Route>? = null
     private var treeRoutes: Array<Route>? = null     // only one parent for each node
@@ -53,30 +56,42 @@ class RouteTest {
         this.joinRoutes = null
     }
 
-    @Throws(IOException::class)
-    private fun sameRouteSerializatin(
-            route: Route, mapper: ObjectMapper) {
-
-        // Write train to String
-        val serialized = mapper.writeValueAsString(route)
-        // Get the train back from the string
-        val route2 = mapper.readValue(serialized, Route::class.java)
-
-        Assert.assertEquals(route, route2)
-    }
 
     @Test
-    @Throws(IOException::class)
     fun stationEqualAfterSerializationAndDeserialization() {
 
         val mapper = ObjectMapper()
 
         for (route in this.linearRoutes!!) {
-            sameRouteSerializatin(route, mapper)
+            equalAfterSerialization(route, mapper, Route::class.java)
         }
 
         for (route in this.treeRoutes!!) {
-            sameRouteSerializatin(route, mapper)
+            equalAfterSerialization(route, mapper, Route::class.java)
         }
+    }
+
+
+
+    // Test that the creation of circular routes is prevented
+
+    @Test(expected = IllegalArgumentException::class)
+    fun circularRootsAreNotAllowed1() {
+        Route.Edge(1L, 1L)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun circularRootsAreNotAllowed2() {
+        Route.Edge(6751L, 6751L)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun circularRootsAreNotAllowed3() {
+        Route.Edge(0L, 0L)
+    }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun circularRootsAreNotAllowed4() {
+        Route.Edge(-1L, -1L)
     }
 }

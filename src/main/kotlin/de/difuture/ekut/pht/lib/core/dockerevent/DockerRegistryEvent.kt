@@ -1,40 +1,41 @@
 package de.difuture.ekut.pht.lib.core.dockerevent
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import java.net.URI
 import java.net.URL
 import java.util.*
 
 data class DockerRegistryEvent(
 
-        val id : UUID,
-        val action : Action,
-        val target : Target,
-        val request : Request,
-        val source : Source) {
+        @JsonProperty("id") val id : UUID,
+        @JsonProperty("action") val action : Action,
+        @JsonProperty("target") val target : Target,
+        @JsonProperty("request") val request : Request,
+        @JsonProperty("source") val source : Source) {
 
     enum class Action {
         PULL, PUSH, MOUNT
     }
 
     data class Target(
-        val mediaType : String,
-        val size : Int,
-        val digest : String,
-        val repository : String,
-        val url : URL,
-        val tag : String
+            @JsonProperty("mediaType") val mediaType : String,
+            @JsonProperty("size") val size : Int,
+            @JsonProperty("digest") val digest : String,
+            @JsonProperty("repository") val repository : String,
+            @JsonProperty("url") val url : URL,
+            @JsonProperty("tag") val tag : String
     )
 
     data class Request(
-        val id : String,
-        val addr : String,
-        val host : URI,
-        val method : String,
-        val useragent : String
+            @JsonProperty("id") val id : String,
+            @JsonProperty("addr") val addr : String,
+            @JsonProperty("host") val host : URI,
+            @JsonProperty("method") val method : String,
+            @JsonProperty("useragent") val useragent : String
     )
 
     data class Source(
-        val addr : String,
-        val instanceID : String
+            @JsonProperty("addr") val addr : String,
+            @JsonProperty("instanceID") val instanceID : String
     )
 }

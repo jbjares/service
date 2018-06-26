@@ -1,6 +1,6 @@
 package de.difuture.ekut.pht.entity
 
-import de.difuture.ekut.pht.lib.core.neo4j.converter.URIConverter
+import de.difuture.ekut.pht.entity.converter.URIConverter
 import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.Id
 import org.neo4j.ogm.annotation.NodeEntity
@@ -20,5 +20,12 @@ class Station(
     var stationID: Long? = null
 
     // Whether the station is considered to be active
-    private var active: Boolean = false
+    private var active: Boolean = true
+
+    fun activate() {
+        this.active = true
+    }
+    fun deactivate() {
+        this.active = false
+    }
 }

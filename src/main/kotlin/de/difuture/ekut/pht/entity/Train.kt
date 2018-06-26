@@ -1,6 +1,6 @@
 package de.difuture.ekut.pht.entity
 
-import de.difuture.ekut.pht.lib.core.neo4j.converter.URIConverter
+import de.difuture.ekut.pht.entity.converter.URIConverter
 import org.neo4j.ogm.annotation.GeneratedValue
 import org.neo4j.ogm.annotation.NodeEntity
 import java.net.URI
@@ -19,5 +19,5 @@ class Train {
     var trainRegistryURI: URI? = null
 
     @Relationship(type = "HAS_ROUTE")
-    var routes: List<Route> = arrayListOf()
+    var routes: List<Route> = emptyList()
 }

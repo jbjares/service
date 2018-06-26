@@ -1,12 +1,15 @@
 package de.difuture.ekut.pht.controller
 
 import de.difuture.ekut.pht.lib.core.dockerevent.DockerRegistryEvent
+import de.difuture.ekut.pht.service.eventconsumer.RegistryEventConsumer
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/listener")
-class RegistryListenerController {
+class RegistryListenerController
+@Autowired constructor(private val consumer: RegistryEventConsumer) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)

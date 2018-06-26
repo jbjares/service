@@ -1,6 +1,0 @@
-/home/zimmerl/repos/pht-github/pht-service/src/main/java/de/difuture/ekut/pht/lib/core/neo4j/entity/Train.java
-/home/zimmerl/repos/pht-github/pht-service/src/main/java/de/difuture/ekut/pht/lib/core/neo4j/entity/Route.java
-/home/zimmerl/repos/pht-github/pht-service/src/main/java/de/difuture/ekut/pht/lib/core/neo4j/entity/TrainDestination.java
-/home/zimmerl/repos/pht-github/pht-service/src/main/java/de/difuture/ekut/pht/TrainupdaterApplication.java
-/home/zimmerl/repos/pht-github/pht-service/src/main/java/de/difuture/ekut/pht/lib/core/neo4j/entity/Station.java
-/home/zimmerl/repos/pht-github/pht-service/src/main/java/de/difuture/ekut/pht/lib/core/neo4j/converter/URIConverter.java

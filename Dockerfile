@@ -1,7 +1,14 @@
-FROM pht/parent-spring 
+FROM maven:3.5.4-jdk-8-alpine as build
+LABEL maintainer="luk.zim91@gmail.com"
+RUN mkdir -p /opt/build
+COPY . /opt/build
 
-ARG JAR_FILE
-COPY ${JAR_FILE} /app/app.jar
-ENTRYPOINT ["dockerize", "-timeout", "5m", "-wait", "http://193.196.20.86:8761/actuator/health", "java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/app.jar", "--spring.profiles.active=denbi"]
-EXPOSE 6003
+WORKDIR /opt/build
+RUN mvn clean verify
 
+# ---------------------------------------------------------
+FROM openjdk:8-alpine3.7
+COPY --from=build /opt/build/target/pht-service-0.0.1-SNAPSHOT.jar  /opt/bin/app.jar
+
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/opt/bin/app.jar"]
+EXPOSE 8770
