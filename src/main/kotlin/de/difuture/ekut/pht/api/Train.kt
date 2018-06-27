@@ -9,7 +9,7 @@ data class Train(
          * (a) communication with a RESTful API to perform requests about this train.
          * (b) Communication with the Train Docker Registry hosting this particular train.
          * The repository name in this Docker Registry hosting versions of the train is
-         * identical to this trainID.
+         * identical to this id.
          *
          */
         val trainID : Long,

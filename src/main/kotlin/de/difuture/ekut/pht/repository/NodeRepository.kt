@@ -10,12 +10,12 @@ interface NodeRepository : Neo4jRepository<Node, Long> {
      *
      */
 //    @Depth(2)
-//    fun findAllByCanBeVisitedIsTrueAndHasBeenVisitedIsFalse(): List<Node>
+//    fun findAllByCanBeVisitedIsTrueAndHasBeenVisitedIsFalse(): List<TrainNode>
 
     /**
      * These nodes can be processed, because these nodes are Root nodes.
      * But the train is not available.
      */
 //    // TODO Might be necessary to update this regularly
-//    fun findAllByRootIsTrueAndCanBeVisitedIsFalse(): List<Node>
+//    fun findAllByRootIsTrueAndCanBeVisitedIsFalse(): List<TrainNode>
 }

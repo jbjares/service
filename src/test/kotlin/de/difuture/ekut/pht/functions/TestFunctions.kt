@@ -13,3 +13,10 @@ fun <T> equalAfterSerialization(
 
     Assert.assertEquals(item, item2)
 }
+
+
+fun <T> allEqualAfterSerialization(items : Iterable<T>, clazz : Class<T>) {
+
+    val mapper = ObjectMapper()
+    items.forEach {  equalAfterSerialization(it, mapper, clazz)}
+}

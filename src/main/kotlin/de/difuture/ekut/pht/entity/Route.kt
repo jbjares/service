@@ -17,5 +17,5 @@ class Route(
 
     // The Root APITrain Destinations of this route
     @Relationship(type = "STARTS_AT")
-    private var starts: List<Node> = arrayListOf()
+    private var starts: List<de.difuture.ekut.pht.entity.Node> = arrayListOf()
 }

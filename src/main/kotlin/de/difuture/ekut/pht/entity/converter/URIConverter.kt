@@ -12,13 +12,8 @@ class URIConverter : AttributeConverter<URI, String> {
         return value?.toASCIIString() ?: NA
     }
 
-
     override fun toEntityAttribute(value: String?): URI? {
 
-        return if (value == null || NA == value) {
-
-            null
-
-        } else URI.create(value)
+        return if (value == null || NA == value) null else URI.create(value)
     }
 }

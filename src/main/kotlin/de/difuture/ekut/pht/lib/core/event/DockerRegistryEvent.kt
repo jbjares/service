@@ -11,8 +11,8 @@ data class DockerRegistryEvent(
         @JsonProperty("id") val id : UUID,
         @JsonProperty("action") val action : Action,
         @JsonProperty("target") val target : Target,
-        @JsonProperty("request") val request : Request,
-        @JsonProperty("source") val source : Source) : Event {
+        @JsonProperty("create") val request : Request,
+        @JsonProperty("source") val source : Source) {
 
     enum class Action {
         PULL, PUSH, MOUNT;
