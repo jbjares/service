@@ -25,5 +25,5 @@ class StationController
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    fun get() : Iterable<URI> = this.stationService.findAll().map { it.uri}
+    fun get() : Iterable<URI?> = this.stationService.findAll().map { it.uri}
 }

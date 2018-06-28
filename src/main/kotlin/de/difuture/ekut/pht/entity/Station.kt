@@ -11,7 +11,7 @@ import java.net.URI
 class Station(
 
         @Convert(URIConverter::class)
-        val uri  : URI
+        var uri  : URI? = null
 ) {
 
     @Id @GeneratedValue
