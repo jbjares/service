@@ -3,13 +3,6 @@ sudo: required
 services:
   - docker
 
-env:
-  # You may want to update this to whatever the latest version is, or keep it
-  # the same as your local machines. However, I have only tested it with 1.8.0+.
-  # There should be a time in the future when this is not necessary - it is
-  # explained in more detail below.
-  DOCKER_COMPOSE_VERSION: 1.21.2
-
 before_install:
   # update is required to update the repositories to see the new packages for
   # Docker.
@@ -22,8 +15,11 @@ before_install:
 
 install:
 
-  # Build the Docker Image using make. This will create the image with the 'test' tag if all the Unit tests run successful 
-  make
+  # Pull the continuous integration suite repository
+  - cd $(mktemp -d)
+  - git clone https://github.com/PersonalHealthTrain/pht-test-integration.git
+  - cd pht-test-integration
+  - chmod +x runTests.sh
 
-  # Pull the continuous integration suite
-  
+script:
+  - ./runTests.sh
