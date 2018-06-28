@@ -17,7 +17,7 @@ class StationController
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    fun ping(@RequestBody @Valid  stationPing: StationPing) {
+    fun ping(@RequestBody @Valid stationPing: StationPing) {
 
         println("Station Controller has received ping")
         stationService.ensureStation(stationPing)

@@ -16,5 +16,5 @@ class StationService
         return stationRepository.findByUri(uri)?.let { it } ?: stationRepository.save(Station(uri))
     }
 
-    fun findAll() = this.stationRepository.findAll()
+    fun findAll() : Iterable<Station> = this.stationRepository.findAll()
 }
