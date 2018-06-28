@@ -4,7 +4,7 @@ RUN mkdir -p /opt/build
 COPY . /opt/build
 
 WORKDIR /opt/build
-RUN mvn clean verify
+RUN mvn clean verify -DskipTests > /dev/null 2>&1 && mvn test
 
 # ---------------------------------------------------------
 FROM openjdk:8-alpine3.7
