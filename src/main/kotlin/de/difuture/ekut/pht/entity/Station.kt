@@ -10,22 +10,10 @@ import java.net.URI
 @NodeEntity
 class Station(
 
-        val stationName : String,
-
         @Convert(URIConverter::class)
-        val stationURI  : URI
+        val uri  : URI
 ) {
 
     @Id @GeneratedValue
     var stationID: Long? = null
-
-    // Whether the station is considered to be active
-    private var active: Boolean = true
-
-    fun activate() {
-        this.active = true
-    }
-    fun deactivate() {
-        this.active = false
-    }
 }

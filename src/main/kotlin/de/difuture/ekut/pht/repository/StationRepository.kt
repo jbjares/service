@@ -7,5 +7,5 @@ import java.util.*
 
 interface StationRepository : Neo4jRepository<Station, UUID> {
 
-    fun findAllByStationURI(stationURI: URI): List<Station>
+    fun findByUri(uri: URI) : Station?
 }
