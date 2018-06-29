@@ -30,7 +30,7 @@ data class DockerRegistryEvent(
             @JsonProperty("digest") val digest : String,
             @JsonProperty("repository") val repository : String,
             @JsonProperty("url") val url : URL,
-            @JsonProperty("tag") val tag : String?
+            @JsonProperty("tag") val tag : String? // NOTE: Must be nullable
     )
 
     data class Request(

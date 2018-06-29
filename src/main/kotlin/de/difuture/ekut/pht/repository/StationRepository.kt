@@ -5,7 +5,7 @@ import org.springframework.data.neo4j.repository.Neo4jRepository
 import java.net.URI
 import java.util.*
 
-interface StationRepository : Neo4jRepository<Station, UUID> {
+interface StationRepository : Neo4jRepository<Station, Long> {
 
-    fun findByUri(uri: URI) : Station?
+    fun findByUri(uri: URI) : Optional<Station>
 }

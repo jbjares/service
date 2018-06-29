@@ -13,7 +13,7 @@ class StationService
     fun ensureStation(stationPing: StationPing) : Station {
 
         val uri = stationPing.uri
-        return stationRepository.findByUri(uri)?.let { it } ?: stationRepository.save(Station(uri))
+        return stationRepository.findByUri(uri).orElseGet { stationRepository.save(Station(uri)) }
     }
 
     fun findAll() : Iterable<Station> = this.stationRepository.findAll()

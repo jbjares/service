@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.typeconversion.Convert
 import java.net.URI
 
 @NodeEntity
-class Station(
+data class Station(
 
         @Convert(URIConverter::class)
         var uri  : URI? = null

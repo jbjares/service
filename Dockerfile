@@ -1,4 +1,4 @@
-FROM maven:3.5.4-jdk-8-alpine as build
+FROM lukaszimmermann/pht-service-builddep:latest as build
 LABEL maintainer="luk.zim91@gmail.com"
 RUN mkdir -p /opt/build
 COPY . /opt/build
