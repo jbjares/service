@@ -13,5 +13,5 @@ import java.net.URI
 data class TrainIdentifier(
 
         @JsonProperty("registryURI") val registryURI : URI,
-        @JsonProperty("repository") val repository: String
+        @JsonProperty("repository") val repository : String
 )
