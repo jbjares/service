@@ -14,9 +14,15 @@ class TrainService
 
     fun findAll() : Iterable<Train> = trainRepository.findAll()
 
-
     @Transactional
-    fun ensureTrain(trainIdentifier: TrainIdentifier) : Train =
+    fun ensureTrain(trainIdentifier: TrainIdentifier) : Train {
 
-        trainRepository.findByIdentifier(trainIdentifier).orElseGet { trainRepository.save(Train(trainIdentifier)) }
+        val trains = trainRepository.findByIdentifier(trainIdentifier)
+
+        if (trains.isEmpty()) {
+
+            return this.trainRepository.save(Train(trainIdentifier))
+        }
+        return trains[0]
+    }
 }
