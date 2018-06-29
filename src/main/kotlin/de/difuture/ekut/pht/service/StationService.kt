@@ -5,11 +5,13 @@ import de.difuture.ekut.pht.entity.Station
 import de.difuture.ekut.pht.repository.StationRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class StationService
 @Autowired constructor(private val stationRepository: StationRepository ) {
 
+    @Transactional
     fun ensureStation(stationPing: StationPing) : Station {
 
         val uri = stationPing.uri
