@@ -25,3 +25,5 @@ hs_err_pid*
 .idea
 pht-service.iml
 target
+.gradle
+

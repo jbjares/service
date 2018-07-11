@@ -1,7 +1,0 @@
-FROM maven:3.5.4-jdk-8-alpine
-LABEL maintainer="luk.zim91@gmail.com"
-RUN mkdir -p /opt/build
-COPY . /opt/build
-WORKDIR /opt/build
-RUN mvn dependency:resolve && rm -rf /opt/build /tmp/*
-
