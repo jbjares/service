@@ -1,4 +1,4 @@
-package de.difuture.ekut.pht.lib.core.datastructure
+package de.difuture.ekut.pht.service.lib.core.datastructure
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import de.difuture.ekut.pht.functions.equalAfterSerialization

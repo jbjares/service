@@ -1,8 +1,5 @@
-package de.difuture.ekut.pht.controller
+package de.difuture.ekut.pht.service.controller
 
-import de.difuture.ekut.pht.lib.core.event.DockerRegistryEvents
-import de.difuture.ekut.pht.service.TrainRegistryService
-import de.difuture.ekut.pht.service.TrainService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*

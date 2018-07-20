@@ -1,4 +1,4 @@
-package de.difuture.ekut.pht.functions
+package de.difuture.ekut.pht.service.functions
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.Assert
